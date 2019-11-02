@@ -45,7 +45,7 @@ learning_rate = 0.01       # 학습률
  
  
 # 데이터를 로딩한다.
-stock_file_name = 'Batterytest.csv' # 아마존 주가데이터 파일
+stock_file_name = 'createSample.csv' # 아마존 주가데이터 파일
 encoding = 'euc-kr' # 문자 인코딩
 names = ['Date','Volt','Percent']
 raw_dataframe = pd.read_csv(stock_file_name, names=names, encoding=encoding) #판다스이용 csv파일 로딩
@@ -251,4 +251,4 @@ test_predict = sess.run(hypothesis, feed_dict={X: recent_data})
  
 print("test_predict", test_predict[0])
 test_predict = reverse_min_max_scaling(price,test_predict) # 금액데이터 역정규화한다
-print("Tomorrow's stock price", test_predict[0]) # 예측한 주가를 출력한다
+print("Tomorrow's Battery percent", test_predict[0]) # 예측한 주가를 출력한다
