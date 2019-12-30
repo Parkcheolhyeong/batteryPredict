@@ -24,7 +24,7 @@ from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
 import tensorflow as tf
 
 
-tf.debugging.set_log_device_placement(True)
+    tf.debugging.set_log_device_placement(True)
 #mirrored_strategy =  tf.distribute.MirroredStrategy()
 mirrored_strategy = tf.distribute.MirroredStrategy(devices=["/gpu:0"])
 
@@ -229,4 +229,3 @@ for i in range(len(inv_yhat)):
     dataset.loc[i:len(inv_y), 'real_' + select_predict + '_' + select_day] = inv_y[i]
 
 dataset.to_excel(select_predict + 'Battery'+ '_'+ select_day + '.xlsx')
-

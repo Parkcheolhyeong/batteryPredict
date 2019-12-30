@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2811740f-8914-4803-a213-61c8909c5150" name="Default Changelist" comment="" />
+    <list default="true" id="2811740f-8914-4803-a213-61c8909c5150" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/12_12/onlyReadXlxs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_12/openpyxlEx.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_12/openxl_Ex.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_12/pushbuttonTest.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_12/qtablewidget_pandas.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_12/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_12/win.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AMZN.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Batterytest.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadBattery_Total.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/loadBattery_Total.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win_Ex.py" beforeDir="false" afterPath="$PROJECT_DIR$/win_Ex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Work_Juo.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../batteryLSTM.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../createSample.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../createSample_191104.csv" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -14,7 +40,17 @@
   <component name="ProjectId" id="1TUlwNbcfCdm2w5a2EdYnYr6GNw" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/12_12" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Clouds\git\batteryPred\Cite\12_12" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Clouds\git\batteryPred\Cite\12_12" />
+      <recent name="D:\Clouds\git\batteryPred\Cite" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -28,8 +64,50 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.win_Ex">
-    <configuration name="Ex" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.qtablewidget_pandas (1)">
+    <configuration name="qtablewidget_pandas (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Cite" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_12" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_12/qtablewidget_pandas.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Cite" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_12" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_12/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Cite" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -41,7 +119,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ex.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="win" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Cite" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_12" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_12/win.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -73,8 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.qtablewidget_pandas (1)" />
+        <item itemvalue="Python.win" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.win_Ex" />
-        <item itemvalue="Python.Ex" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
