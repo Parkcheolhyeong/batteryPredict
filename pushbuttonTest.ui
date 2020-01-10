@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>734</width>
-    <height>648</height>
+    <width>1298</width>
+    <height>922</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="btn_run">
    <property name="geometry">
     <rect>
-     <x>430</x>
+     <x>970</x>
      <y>20</y>
      <width>75</width>
      <height>23</height>
@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="btn_exit">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>510</y>
+     <x>980</x>
+     <y>860</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -44,7 +44,7 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>141</width>
+     <width>181</width>
      <height>20</height>
     </rect>
    </property>
@@ -57,7 +57,7 @@
     </font>
    </property>
    <property name="text">
-    <string>수정할 이름</string>
+    <string>학습 데이터</string>
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
@@ -66,7 +66,7 @@
   <widget class="QPushButton" name="btn_load">
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>890</x>
      <y>20</y>
      <width>75</width>
      <height>23</height>
@@ -81,7 +81,7 @@
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>501</width>
+     <width>1041</width>
      <height>301</height>
     </rect>
    </property>
@@ -91,7 +91,7 @@
     <rect>
      <x>20</x>
      <y>360</y>
-     <width>91</width>
+     <width>171</width>
      <height>20</height>
     </rect>
    </property>
@@ -104,7 +104,7 @@
     </font>
    </property>
    <property name="text">
-    <string>수정할이름</string>
+    <string>예측 데이터</string>
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
@@ -115,15 +115,15 @@
     <rect>
      <x>10</x>
      <y>390</y>
-     <width>501</width>
-     <height>111</height>
+     <width>1041</width>
+     <height>451</height>
     </rect>
    </property>
   </widget>
   <widget class="QTableView" name="tableView_3">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>1080</x>
      <y>50</y>
      <width>191</width>
      <height>301</height>
@@ -133,9 +133,9 @@
   <widget class="QLabel" name="label_result_3">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>1080</x>
      <y>20</y>
-     <width>141</width>
+     <width>151</width>
      <height>20</height>
     </rect>
    </property>
@@ -148,10 +148,62 @@
     </font>
    </property>
    <property name="text">
-    <string>수정할 이름</string>
+    <string>알람내역</string>
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>1120</x>
+     <y>470</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>배터리 예측 정확도:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>1060</x>
+     <y>500</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>증가된 배터리 사용시간 정확도:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>1240</x>
+     <y>470</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>70%</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>1240</x>
+     <y>500</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>70%</string>
    </property>
   </widget>
  </widget>

@@ -83,7 +83,7 @@ class WindowClass(QMainWindow, form_class) :
 
     #btn_1이 눌리면 작동할 함수
     def btnRunFunction(self) :
-        print("btn_1 Clicked")
+        #print("btn_1 Clicked")
         lstmprd = LSTMPredictor()
         lstmprd.run()
 
@@ -103,7 +103,7 @@ class WindowClass(QMainWindow, form_class) :
         year_new = str(int(date_split[0]) + 1)
 
         for index, row in df_work.iterrows():
-            if (index < len(df_work) - 1):
+            if (index < len(df_work)):
                 date_old = df_work['날짜'][index]
                 date_split = date_old.split('-')
                 year_old = str(date_split[0])
@@ -114,6 +114,8 @@ class WindowClass(QMainWindow, form_class) :
 
         model = pandasModel(df_work)
         self.tableView_2.setModel(model)
+        self.tableView_2.resizeColumnsToContents()
+
 
     #btn_2가 눌리면 작동할 함수
     def btnExitFunction(self) :
@@ -122,11 +124,13 @@ class WindowClass(QMainWindow, form_class) :
     # btn_3가 눌리면 작동할 함수
     def btnLoadFunction(self):
         header_labels = ['Column 1', 'Column 2', 'Column 3', 'Column 4']
-        print("btn_3 Clicked")
+        #print("btn_3 Clicked")
         model = pandasModel(df)
 
         count = 0
         #self.tableWidget.setColumnCount(5)
+
+
         self.tableView.setModel(model)
         for index, row in df.iterrows():
             if (index < len(df) - 1):
@@ -143,19 +147,28 @@ class WindowClass(QMainWindow, form_class) :
         # do something
         df['Alert'] = (df['Alert'] == 1)
         alertValue = df[['날짜', 'Alert']]
+        batteryAvg = df['배터리량']
+
 
         #print(df)
         alertLen = len(df['Alert'] == True)
-        print(alertValue)
+        #print(alertValue)
         model = pandasModel(alertValue)
+
+        # 1년에 1~8544할하루 365일 하루 24시간
+
         self.tableView_3.setModel(model)
+        self.tableView.resizeColumnsToContents()
+        self.tableView_3.resizeColumnsToContents()
         messageBox(count)
 
         alertValue.to_excel('Test.xlsx')
         # read csv file
         #df = pd.read_excel("./JuO_temp.xlsx")#, names=['date', 'Percent', 'Volt', 'Charge'])  # df is pandas.DataFrame
-        print("##### data #####")
+        #print("##### data #####")
         #print(df)
+
+
 
 
 class LSTMPredictor() :
@@ -286,7 +299,7 @@ class LSTMPredictor() :
         model.add(Dense(1))
         model.compile(loss='mae', optimizer='adam')
         # fit network
-        history = model.fit(train_X, train_y, epochs=5, batch_size=24, validation_data=(test_X, test_y), verbose=2,
+        history = model.fit(train_X, train_y, epochs=1, batch_size=24, validation_data=(test_X, test_y), verbose=2,
                             shuffle=False)
         # plot history
         pyplot.plot(history.history['loss'], label='train')
@@ -308,7 +321,7 @@ class LSTMPredictor() :
         inv_y = inv_y[:, 0]
         # calculate RMSE
         rmse = sqrt(mean_squared_error(inv_y, inv_yhat))
-        print('Test RMSE: %.3f' % rmse)
+        #print('Test RMSE: %.3f' % rmse)
         # calculate MAPE
         mape = self.MAPE(inv_y, inv_yhat)
         print('Test MAPE: %.3f' % mape)
@@ -337,7 +350,8 @@ class LSTMPredictor() :
 def messageBox(i):
     root = tkinter.Tk()
     root.withdraw()
-    messagebox.showinfo(title="Hi", message=i)
+    msg = "과다사용 횟수: " + str(i)
+    messagebox.showinfo(title="Alert Notification", message=msg)
 
 
 if __name__ == "__main__" :

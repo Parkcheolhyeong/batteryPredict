@@ -95,7 +95,8 @@ class WindowClass(QMainWindow, form_class) :
         print(alertValue)
         model = pandasModel(alertValue)
         self.tableView_3.setModel(model)
-        messageBox(count)
+        #messageBox(count)
+        messageBox(13)
         # read csv file
         #df = pd.read_excel("./JuO_temp.xlsx")#, names=['date', 'Percent', 'Volt', 'Charge'])  # df is pandas.DataFrame
         print("##### data #####")
@@ -104,7 +105,7 @@ class WindowClass(QMainWindow, form_class) :
 def messageBox(i):
     root = tkinter.Tk()
     root.withdraw()
-    messagebox.showinfo(title="Hi", message=i)
+    messagebox.showinfo(title="Alert Notification", message=i)
 
 
 if __name__ == "__main__" :
