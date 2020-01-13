@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1298</width>
+    <width>1694</width>
     <height>922</height>
    </rect>
   </property>
@@ -204,6 +204,40 @@
    </property>
    <property name="text">
     <string>70%</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView_4">
+   <property name="geometry">
+    <rect>
+     <x>1310</x>
+     <y>50</y>
+     <width>191</width>
+     <height>301</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_result_4">
+   <property name="geometry">
+    <rect>
+     <x>1310</x>
+     <y>20</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Adobe Devanagari</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>일일배터리평균</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::RichText</enum>
    </property>
   </widget>
  </widget>
