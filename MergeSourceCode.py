@@ -30,7 +30,7 @@ from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
 import tensorflow as tf
 
 
-df = pd.read_excel('Enercamp.xlsx', sheet_name='Total', index=True)
+df = pd.read_excel('Enercamp1001.xlsx', sheet_name='Total', index=True)
 a_lst = []
 
 #UI파일 연결
@@ -113,8 +113,11 @@ class WindowClass(QMainWindow, form_class) :
                 df_work['날짜'][index] = date_new
 
         model = pandasModel(df_work)
+
+        dailyAvg(self)
         self.tableView_2.setModel(model)
         self.tableView_2.resizeColumnsToContents()
+
 
 
     #btn_2가 눌리면 작동할 함수
@@ -123,7 +126,7 @@ class WindowClass(QMainWindow, form_class) :
 
     # btn_3가 눌리면 작동할 함수
     def btnLoadFunction(self):
-        header_labels = ['Column 1', 'Column 2', 'Column 3', 'Column 4']
+        header_labels = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5', 'Column 6']
         #print("btn_3 Clicked")
         model = pandasModel(df)
 
@@ -156,6 +159,8 @@ class WindowClass(QMainWindow, form_class) :
         model = pandasModel(alertValue)
 
         # 1년에 1~8544할하루 365일 하루 24시간
+
+
 
         self.tableView_3.setModel(model)
         self.tableView.resizeColumnsToContents()
@@ -352,6 +357,38 @@ def messageBox(i):
     root.withdraw()
     msg = "과다사용 횟수: " + str(i)
     messagebox.showinfo(title="Alert Notification", message=msg)
+
+def dailyAvg(self):
+    timeAVG = df["시간"].to_numpy()
+    daily2009 = timeAVG[:8760]
+    daily2010 = timeAVG[8760:17520]
+    daily2011 = timeAVG[17520:26280]
+    daily2012 = timeAVG[26280:35064]
+    daily2013 = timeAVG[35064:43824]
+    time2009 = np.reshape(daily2009, (365, -1))
+    time2010 = np.reshape(daily2010, (365, -1))
+    time2011 = np.reshape(daily2011, (365, -1))
+    time2012 = np.reshape(daily2012, (366, -1))
+    time2013 = np.reshape(daily2013, (365, -1))
+
+    meanTime2009 = np.mean(time2009, axis=1)
+    meanTime2010 = np.mean(time2010, axis=1)
+    meanTime2011 = np.mean(time2011, axis=1)
+    meanTime2012 = np.mean(time2012, axis=1)
+
+    meanTime = meanTime2009.tolist() + meanTime2010.tolist() + meanTime2011.tolist() + meanTime2012.tolist()
+
+    minValue = min(meanTime)
+    dt_index = pd.date_range("20090101", "20121201", freq="D")
+    dt_list = dt_index.strftime("%Y-%m-%d").tolist()
+    date = pd.DataFrame(meanTime)
+    dff = pd.DataFrame(dt_list)
+    dff["평균"] = date
+
+    model = pandasModel(dff)
+
+    self.tableView_4.setModel(model)
+    self.tableView_4.resizeColumnsToContents()
 
 
 if __name__ == "__main__" :
