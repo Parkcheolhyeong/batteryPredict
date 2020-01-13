@@ -30,7 +30,7 @@ from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
 import tensorflow as tf
 
 
-df = pd.read_excel('Enercamp1001.xlsx', sheet_name='Total', index=True)
+df_data = pd.read_excel('Enercamp1013.xlsx', sheet_name='Total', index=True)
 a_lst = []
 
 #UI파일 연결
@@ -89,11 +89,11 @@ class WindowClass(QMainWindow, form_class) :
 
         count = 0
         # self.tableWidget.setColumnCount(5)
-        df = pd.read_excel('Test.xlsx', sheet_name='Sheet1', index=True)
-        df_work = df
+        df_alert = pd.read_excel('Test.xlsx', sheet_name='Sheet1', index=True)
+        df_work = df_alert
         df_temp = pd.read_excel('PredictBatteryIndicator.xlsx', sheet_name='Sheet1', index=True)
-        df_work['배터리량'] = df_temp['배터리량']
-        ColumList = ['날짜', '배터리량', 'Alert']
+        df_work['시간'] = df_temp['시간']
+        ColumList = ['날짜', '시간', 'Alert']
         df_work = df_work[ColumList]
 
         date_old = df_work['날짜'][len(df_work)-1]
@@ -128,33 +128,33 @@ class WindowClass(QMainWindow, form_class) :
     def btnLoadFunction(self):
         header_labels = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5', 'Column 6']
         #print("btn_3 Clicked")
-        model = pandasModel(df)
+        model = pandasModel(df_data)
 
         count = 0
         #self.tableWidget.setColumnCount(5)
 
 
         self.tableView.setModel(model)
-        for index, row in df.iterrows():
-            if (index < len(df) - 1):
-                if abs(int(df['배터리량'][index].item()) - int(df['배터리량'][index + 1].item())) > 40:
+        for index, row in df_data.iterrows():
+            if (index < len(df_data) - 1):
+                if abs(int(df_data['배터리량'][index].item()) - int(df_data['배터리량'][index + 1].item())) > 40:
                     a_lst.append(1)
                     count = count +1
                 else:
                     a_lst.append(0)
 
         a_lst.append(0)
-        df["Alert"] = a_lst
+        df_data["Alert"] = a_lst
 
         # data = df.assign(flag=df['배터리량'].gt(df['배터리량'].shift()))
         # do something
-        df['Alert'] = (df['Alert'] == 1)
-        alertValue = df[['날짜', 'Alert']]
-        batteryAvg = df['배터리량']
+        df_data['Alert'] = (df_data['Alert'] == 1)
+        alertValue = df_data[['날짜', 'Alert']]
+        batteryAvg = df_data['배터리량']
 
 
         #print(df)
-        alertLen = len(df['Alert'] == True)
+        alertLen = len(df_data['Alert'] == True)
         #print(alertValue)
         model = pandasModel(alertValue)
 
@@ -215,25 +215,25 @@ class LSTMPredictor() :
         return agg
 
     def run(self):
-        self.select_predict = "배터리량"
+        self.select_predict = '시간'
         self.select_day = "Total"
         self.select_count = "5"
         print("data : " + self.select_predict)
         print("select day : " + self.select_day)
         print("select year : " + self.select_count)
 
-        data = pd.read_excel('Enercamp.xlsx', sheet_name=self.select_day)
-        df = pd.DataFrame(data, columns=['배터리량', '전기량', '충전량'])
+        data = pd.read_excel('Enercamp1013.xlsx', sheet_name=self.select_day)
+        df_learning = pd.DataFrame(data, columns=['배터리량', '전기량', '충전량', '날씨', '충전방식', '시간'])
         # df = pd.DataFrame(data, columns = ['ex_load', 'temp', 'rainfall', 'wind', 'humidity', 'cloud', 'discomfor_index', 'wind_temp'] )
         # df["smp"] = data.target
-        X = df.drop(self.select_predict, 1)  # Feature Matrix
-        y = df[self.select_predict]  # Target Variable
+        X = df_learning.drop(self.select_predict, 1)  # Feature Matrix
+        y = df_learning[self.select_predict]  # Target Variable
         # X = df.drop("ex_load",1)   #Feature Matrix
         # y = df["ex_load"]          #Target Variable
-        df.head()
+        df_learning.head()
 
         plt.figure(figsize=(20, 17))
-        cor = df.corr()
+        cor = df_learning.corr()
         sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
         # plt.show()
         # plt.savefig(self.select_predict + '_'+ select_day + '.png')
@@ -243,7 +243,7 @@ class LSTMPredictor() :
         # cor_target = abs(cor["ex_load"])
         # Selecting highly correlated features
         relevant_features = cor_target[cor_target > 0.5]
-        print(df.columns)
+        print(df_learning.columns)
         print(cor_target)
         print("total features : " + str(len(cor_target)))
         print(relevant_features.index)
@@ -253,7 +253,7 @@ class LSTMPredictor() :
         # relevant_features = 12
 
         # load dataset
-        dataset = pd.read_excel('Enercamp.xlsx', sheet_name=self.select_day)
+        dataset = pd.read_excel('Enercamp1013.xlsx', sheet_name=self.select_day)
         # print(dataset)
         # dataset = pd.DataFrame(dataset, columns = ['smp', 'coal', 'solar', 'wind', 'hydraulic', 'ocean', 'bio', 'LNG', 'wind', 'nuclear', 'b_coal', 'gas'] )
         dataset = pd.DataFrame(dataset, columns=relevant_features.index)
@@ -359,6 +359,7 @@ def messageBox(i):
     messagebox.showinfo(title="Alert Notification", message=msg)
 
 def dailyAvg(self):
+    df = pd.read_excel('Enercamp1013.xlsx', sheet_name='Total', index=True)
     timeAVG = df["시간"].to_numpy()
     daily2009 = timeAVG[:8760]
     daily2010 = timeAVG[8760:17520]
