@@ -28,7 +28,9 @@ from sklearn.linear_model import LinearRegression
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
 import tensorflow as tf
+from tkinter import ttk
 
+pd.options.display.float_format = '{:,.0f}'.format
 
 df_data = pd.read_excel('Enercamp1013.xlsx', sheet_name='Total', index=True)
 a_lst = []
@@ -89,11 +91,11 @@ class WindowClass(QMainWindow, form_class) :
 
         count = 0
         # self.tableWidget.setColumnCount(5)
-        df_alert = pd.read_excel('Test.xlsx', sheet_name='Sheet1', index=True)
+        df_alert = pd.read_excel('alert_data.xlsx', sheet_name='Sheet1', index=True)
         df_work = df_alert
-        df_temp = pd.read_excel('PredictBatteryIndicator.xlsx', sheet_name='Sheet1', index=True)
-        df_work['시간'] = df_temp['시간']
-        ColumList = ['날짜', '시간', 'Alert']
+        df_temp = pd.read_excel('learn_data.xlsx', sheet_name='Sheet1', index=True)
+        df_work['배터리량'] = df_temp['real_배터리량_Total']
+        ColumList = ['날짜', '배터리량', 'Alert']
         df_work = df_work[ColumList]
 
         date_old = df_work['날짜'][len(df_work)-1]
@@ -111,14 +113,53 @@ class WindowClass(QMainWindow, form_class) :
                 date_split[0] = year_new
                 date_new = '-'.join(date_split)
                 df_work['날짜'][index] = date_new
+                #print(date_new)
 
-        model = pandasModel(df_work)
+            if date_new == '2014-12-31 23:00:00':
+                df_revised = df_work[:index + 2]
+                df_revised["배터리량"] = df_revised["배터리량"].astype('int')
+                print("hi")
+                df_revised["날짜"][8759] = '2015-01-01 24:00:00'
+                break
 
-        dailyAvg(self)
+        df_revised["시간"] = df_revised["배터리량"]
+        for index, row in df_revised.iterrows():
+            temp_per = df_revised["배터리량"][index]
+            temp_t = int(temp_per) * 20
+            df_revised["시간"][index] = temp_t
+
+
+        model = pandasModel(df_revised)
+        timeAVG = df_revised["시간"].to_numpy()
+        time2014 = np.reshape(timeAVG, (365, -1))
+        meanTime2014 = np.mean(time2014, axis=1)
+        aa = df_revised["날짜"]
+        # aa['평균'] = meanTime2014
+
+        meanTimeq = meanTime2014.tolist()
+        dt_index = pd.date_range("20140101", "20141201", freq="MS")
+        dt_list = dt_index.strftime("%Y-%m").tolist()
+        date = pd.DataFrame(meanTimeq)
+        dff = pd.DataFrame(dt_list)
+        dff["평균"] = date
+        dff["평균"]  = dff["평균"].astype(int)
+
+        print(dff)
+        #time2014 = np.reshape(df_revised["배터리량"], (365, -1))
+        #meanTime2014 = np.mean(time2014, axis=1)
+        #aa = df_revised["날짜"]
+        #aa['평균'] = meanTime2014
+
+        #print(aa)
+        #len(df_revised)
+
         self.tableView_2.setModel(model)
         self.tableView_2.resizeColumnsToContents()
 
-
+        model = pandasModel(dff)
+        self.tableView_5.setModel(model)
+        self.tableView_5.resizeColumnsToContents()
+        #dailyAvgs(df_work, self.tableView_5)
 
     #btn_2가 눌리면 작동할 함수
     def btnExitFunction(self) :
@@ -132,7 +173,6 @@ class WindowClass(QMainWindow, form_class) :
 
         count = 0
         #self.tableWidget.setColumnCount(5)
-
 
         self.tableView.setModel(model)
         for index, row in df_data.iterrows():
@@ -152,7 +192,6 @@ class WindowClass(QMainWindow, form_class) :
         alertValue = df_data[['날짜', 'Alert']]
         batteryAvg = df_data['배터리량']
 
-
         #print(df)
         alertLen = len(df_data['Alert'] == True)
         #print(alertValue)
@@ -160,14 +199,15 @@ class WindowClass(QMainWindow, form_class) :
 
         # 1년에 1~8544할하루 365일 하루 24시간
 
-
-
         self.tableView_3.setModel(model)
         self.tableView.resizeColumnsToContents()
         self.tableView_3.resizeColumnsToContents()
-        messageBox(count)
 
-        alertValue.to_excel('Test.xlsx')
+        dailyAvg(df_data, self.tableView_4, self)
+        messageBox(count)
+        alertValue.to_excel('alert_data.xlsx')
+
+
         # read csv file
         #df = pd.read_excel("./JuO_temp.xlsx")#, names=['date', 'Percent', 'Volt', 'Charge'])  # df is pandas.DataFrame
         #print("##### data #####")
@@ -215,7 +255,7 @@ class LSTMPredictor() :
         return agg
 
     def run(self):
-        self.select_predict = '시간'
+        self.select_predict = '배터리량'
         self.select_day = "Total"
         self.select_count = "5"
         print("data : " + self.select_predict)
@@ -263,7 +303,7 @@ class LSTMPredictor() :
         # encoder = LabelEncoder()
         # values[:,1] = encoder.fit_transform(values[:,1])
         # ensure all data is float
-        values = values.astype('float32')
+        values = values.astype('int')
         # normalize features
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaled = scaler.fit_transform(values)
@@ -345,7 +385,7 @@ class LSTMPredictor() :
             dataset.loc[i:len(inv_y), 'real_' + self.select_predict + '_' + self.select_day] = inv_y[i]
 
         # dataset.to_excel(select_predict + 'Battery' + '_' + self.select_day + '.xlsx')
-        dataset.to_excel('PredictBatteryIndicator.xlsx')
+        dataset.to_excel('learn_data.xlsx')
 
 
 
@@ -358,8 +398,30 @@ def messageBox(i):
     msg = "과다사용 횟수: " + str(i)
     messagebox.showinfo(title="Alert Notification", message=msg)
 
-def dailyAvg(self):
-    df = pd.read_excel('Enercamp1013.xlsx', sheet_name='Total', index=True)
+def dailyAvgs(df_temp, tableView_temp):
+    dff = df_temp
+    print(df_temp )
+    timeAVG = dff["시간"].to_numpy()
+    daily2014 = timeAVG[:8760]
+    time2014 = np.reshape(daily2014, (365, -1))
+    meanTime2014 = np.mean(time2014, axis=1)
+    meanTime = meanTime2014.tolist()
+
+
+    date = pd.DataFrame(meanTime)
+    dff['평균'] = date
+    dff['평균'] = dff['평균'].astype(int)
+
+
+    model = pandasModel(dff)
+
+    tableView_temp.setModel(model)
+    tableView_temp.resizeColumnsToContents()
+
+
+
+def dailyAvg(df_temp, tableView_temp, self):
+    df = df_temp
     timeAVG = df["시간"].to_numpy()
     daily2009 = timeAVG[:8760]
     daily2010 = timeAVG[8760:17520]
@@ -376,20 +438,26 @@ def dailyAvg(self):
     meanTime2010 = np.mean(time2010, axis=1)
     meanTime2011 = np.mean(time2011, axis=1)
     meanTime2012 = np.mean(time2012, axis=1)
+    meanTime2013 = np.mean(time2013, axis=1)
 
-    meanTime = meanTime2009.tolist() + meanTime2010.tolist() + meanTime2011.tolist() + meanTime2012.tolist()
+
+    meanTime = meanTime2009.tolist() + meanTime2010.tolist() + meanTime2011.tolist() + meanTime2012.tolist() + meanTime2013.tolist()
 
     minValue = min(meanTime)
-    dt_index = pd.date_range("20090101", "20121201", freq="D")
+    dt_index = pd.date_range("20090101", "20131201", freq="D")
     dt_list = dt_index.strftime("%Y-%m-%d").tolist()
     date = pd.DataFrame(meanTime)
     dff = pd.DataFrame(dt_list)
     dff["평균"] = date
 
+    dff["평균"] = dff["평균"].astype(int)
     model = pandasModel(dff)
 
-    self.tableView_4.setModel(model)
-    self.tableView_4.resizeColumnsToContents()
+    tableView_temp.setModel(model)
+    tableView_temp.resizeColumnsToContents()
+    self.label_6.setText(str(minValue))
+
+
 
 
 if __name__ == "__main__" :
