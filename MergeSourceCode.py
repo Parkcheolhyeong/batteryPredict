@@ -149,7 +149,6 @@ class WindowClass(QMainWindow, form_class) :
         dff.columns = ['날짜', '평균']
 
         dff.to_excel('output_avg.xlsx')
-        print(dff)
         #time2014 = np.reshape(df_revised["배터리량"], (365, -1))
         #meanTime2014 = np.mean(time2014, axis=1)
         #aa = df_revised["날짜"]
@@ -409,7 +408,7 @@ def messageBox(i):
 
 def dailyAvgs(df_temp, tableView_temp):
     dff = df_temp
-    print(df_temp )
+
     timeAVG = dff["시간"].to_numpy()
     daily2014 = timeAVG[:8760]
     time2014 = np.reshape(daily2014, (365, -1))
@@ -472,8 +471,6 @@ def dailyAvg(df_temp, tableView_temp, self):
     self.label_6.setText(str(minValue))
 
 def comparePredict(df_temp, self):
-    print(df_temp)
-    print(len(df_temp))
     acc = (len(df_temp)/(365*24)) * 100
     acc_pr = str(acc)+"%"
     self.label_3.setText(acc_pr)
