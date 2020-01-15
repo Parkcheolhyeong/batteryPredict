@@ -140,10 +140,15 @@ class WindowClass(QMainWindow, form_class) :
         dt_index = pd.date_range("20140101", "20141201", freq="MS")
         dt_list = dt_index.strftime("%Y-%m").tolist()
         date = pd.DataFrame(meanTimeq)
+
         dff = pd.DataFrame(dt_list)
+
         dff["평균"] = date
         dff["평균"] = dff["평균"].astype(int)
 
+        dff.columns = ['날짜', '평균']
+
+        dff.to_excel('output_avg.xlsx')
         print(dff)
         #time2014 = np.reshape(df_revised["배터리량"], (365, -1))
         #meanTime2014 = np.mean(time2014, axis=1)
@@ -414,7 +419,8 @@ def dailyAvgs(df_temp, tableView_temp):
 
     date = pd.DataFrame(meanTime)
     dff['평균'] = date
-    dff['평균'] = dff['평균'].astype(int)
+
+    #dff.rename(columns={'0': '날짜'}, inplace=True)
 
 
     model = pandasModel(dff)
@@ -455,6 +461,10 @@ def dailyAvg(df_temp, tableView_temp, self):
     dff["평균"] = date
 
     dff["평균"] = dff["평균"].astype(int)
+
+    dff.columns = ['날짜', '평균']
+
+    dff.to_excel('input_avg.xlsx')
     model = pandasModel(dff)
 
     tableView_temp.setModel(model)
