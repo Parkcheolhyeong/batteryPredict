@@ -142,7 +142,7 @@ class WindowClass(QMainWindow, form_class) :
         date = pd.DataFrame(meanTimeq)
         dff = pd.DataFrame(dt_list)
         dff["평균"] = date
-        dff["평균"]  = dff["평균"].astype(int)
+        dff["평균"] = dff["평균"].astype(int)
 
         print(dff)
         #time2014 = np.reshape(df_revised["배터리량"], (365, -1))
@@ -159,6 +159,10 @@ class WindowClass(QMainWindow, form_class) :
         model = pandasModel(dff)
         self.tableView_5.setModel(model)
         self.tableView_5.resizeColumnsToContents()
+
+        compareAVG(dff, self)
+        comparePredict(df_revised, self)
+
         #dailyAvgs(df_work, self.tableView_5)
 
     #btn_2가 눌리면 작동할 함수
@@ -456,6 +460,29 @@ def dailyAvg(df_temp, tableView_temp, self):
     tableView_temp.setModel(model)
     tableView_temp.resizeColumnsToContents()
     self.label_6.setText(str(minValue))
+
+def comparePredict(df_temp, self):
+    print(df_temp)
+    print(len(df_temp))
+    acc = (len(df_temp)/(365*24)) * 100
+    acc_pr = str(acc)+"%"
+    self.label_3.setText(acc_pr)
+
+def compareAVG(df_temp, self):
+    a = self.label_6.text()
+    count = 0
+    normal = float(a)
+
+    for index, row in df_temp.iterrows():
+        tempAvg = df_temp['평균'][index]
+        if tempAvg>normal:
+            count = count+1
+
+    acc = count/len(df_temp)*100
+    acc_rstime = str(acc)+"%"
+    self.label_4.setText(acc_rstime)
+
+
 
 
 
