@@ -137,8 +137,8 @@ class WindowClass(QMainWindow, form_class) :
         # aa['평균'] = meanTime2014
 
         meanTimeq = meanTime2014.tolist()
-        dt_index = pd.date_range("20140101", "20141201", freq="MS")
-        dt_list = dt_index.strftime("%Y-%m").tolist()
+        dt_index = pd.date_range("20140101", "20141201", freq="D")
+        dt_list = dt_index.strftime("%Y-%m-%d").tolist()
         date = pd.DataFrame(meanTimeq)
 
         dff = pd.DataFrame(dt_list)
